@@ -1,17 +1,18 @@
 import 'package:lesson_1/language.dart';
 import 'package:lesson_1/abstract_film.dart';
 
-
 class Film extends AbstractFilm with Convertor {
-  Film(String id, String title, String picture, double voteAverage, String releaseDate, String description, String language)
-      : super(id, title, picture, voteAverage, releaseDate, description, language) {
-    convert(language);
+  Film(String id, String title, String picture, double voteAverage,
+      String releaseDate, String description, String language)
+      : super(id, title, picture, voteAverage, releaseDate, description,
+            language) {
+    Language lang = convert(language);
   }
 }
 
 mixin Convertor {
-  Language convert(String lang){
-    switch(lang){
+  Language convert(String lang) {
+    switch (lang) {
       case 'ru':
         return Language.ru;
       case 'en':
@@ -26,9 +27,9 @@ mixin Convertor {
   }
 }
 
-extension MyLanguage on Language{
-  String toPrettyString(Language language){
-    switch(language){
+extension MyLanguage on Language {
+  String toPrettyString(Language language) {
+    switch (language) {
       case Language.ru:
         return "Русский";
       case Language.en:
