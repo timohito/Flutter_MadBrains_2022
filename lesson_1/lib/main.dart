@@ -34,50 +34,66 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Film> films = [
-    Film(
-        '0',
-        'Дилер',
-        'https://www.film.ru/sites/default/files/movies/posters/2589974-2086974.jpeg',
-        4.0,
-        '1996',
-        'desc0',
-        'en'),
-    Film(
-        '1',
-        'Дилер 2',
-        'https://www.film.ru/sites/default/files/movies/posters/2589974-2086974.jpeg',
-        4.0,
-        '1996',
-        'desc1',
-        'en'),
-    Film(
-        '2',
-        'Брат',
-        'https://www.film.ru/sites/default/files/movies/posters/2589974-2086974.jpeg',
-        5.0,
-        '1996',
-        'desc2',
-        'ru'),
-    Film(
-        '3',
-        'Брат 2',
-        'https://www.film.ru/sites/default/files/movies/posters/2589974-2086974.jpeg',
-        5.0,
-        '1996',
-        'desc3',
-        'ru'),
-    Film(
-        '4',
-        'Игра на понижение',
-        'https://www.film.ru/sites/default/files/movies/posters/2589974-2086974.jpeg',
-        5.0,
-        '1996',
-        'desc4',
-        'de'),
-  ];
+  List<Film> films = [];
 
-  //Convertor convertor = Convertor();
+  bool filterVote = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _getFilms().then((value) {
+      setState(() {
+        films = value;
+      });
+    });
+    super.initState();
+  }
+
+  Future<List<Film>> _getFilms() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return [
+      Film(
+          '0',
+          'Дилер',
+          'https://www.film.ru/sites/default/files/movies/posters/2589974-2086974.jpeg',
+          4.0,
+          '1996',
+          'desc0',
+          'en'),
+      Film(
+          '1',
+          'Дилер 2',
+          'https://www.film.ru/sites/default/files/movies/posters/2589974-2086974.jpeg',
+          4.0,
+          '1996',
+          'desc1',
+          'en'),
+      Film(
+          '2',
+          'Брат',
+          'https://www.film.ru/sites/default/files/movies/posters/2589974-2086974.jpeg',
+          5.0,
+          '1996',
+          'desc2',
+          'ru'),
+      Film(
+          '3',
+          'Брат 2',
+          'https://www.film.ru/sites/default/files/movies/posters/2589974-2086974.jpeg',
+          5.0,
+          '1996',
+          'desc3',
+          'ru'),
+      Film(
+          '4',
+          'Игра на понижение',
+          'https://www.film.ru/sites/default/files/movies/posters/2589974-2086974.jpeg',
+          5.0,
+          '1996',
+          'desc4',
+          'de'),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,42 +102,52 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Список фильмов'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          // children: <Widget>[
-          //   FilmCard(
-          //     title: films[0].title,
-          //     picture: films[0].picture,
-          //     language: films[0].convert(films[0].language),
-          //   ),
-          //   FilmCard(
-          //     title: films[1].title,
-          //     picture: films[1].picture,
-          //     language: films[1].convert(films[1].language),
-          //   ),
-          //   FilmCard(
-          //     title: films[2].title,
-          //     picture: films[2].picture,
-          //     language: films[2].convert(films[2].language),
-          //   ),
-          //   FilmCard(
-          //     title: films[3].title,
-          //     picture: films[3].picture,
-          //     language: films[3].convert(films[3].language),
-          //   ),
-          // ],
-          children: [
-            ...List.generate(films.length, (index) {
-              return FilmCard(
-                  title: films[index].title,
-                  picture: films[index].picture,
-                  language: films[index]
-                      .convert(films[index].language)
-                      .toPrettyString());
-            }),
-          ],
-        ),
+        child: Column(children: [
+          Row(
+            children: [
+              Checkbox(
+                value: filterVote,
+                onChanged: (bool? changeValue) {
+                  setState(() {
+                    filterVote = changeValue ?? false;
+                  });
+                },
+              ),
+              const Text('оценка только больше 4')
+            ],
+          ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: filterFilms,
+                child: const Text('Поиск'),
+              )
+            ],
+          ),
+          ...List.generate(films.length, (index) {
+            return FilmCard(
+                title: films[index].title,
+                picture: films[index].picture,
+                language: films[index]
+                    .convert(films[index].language)
+                    .toPrettyString());
+          }),
+        ]),
       ),
     );
+  }
+
+  Future<void> filterFilms() async {
+    await _getFilms().then((valueFilms) {
+      setState(() {
+        if (filterVote) {
+          films =
+              valueFilms.where((element) => element.voteAverage > 4.0).toList();
+        } else {
+          films = valueFilms;
+        }
+      });
+    });
   }
 }
 
