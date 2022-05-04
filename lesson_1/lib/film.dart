@@ -28,8 +28,8 @@ mixin Convertor {
 }
 
 extension MyLanguage on Language {
-  String toPrettyString(Language language) {
-    switch (language) {
+  String toPrettyString() {
+    switch (this) {
       case Language.ru:
         return "Русский";
       case Language.en:

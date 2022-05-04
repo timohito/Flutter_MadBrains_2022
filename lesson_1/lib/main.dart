@@ -85,29 +85,41 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Список фильмов'),
       ),
-      body: Column(
-        children: <Widget>[
-          FilmCard(
-            title: films[0].title,
-            picture: films[0].picture,
-            language: films[0].convert(films[0].language),
-          ),
-          FilmCard(
-            title: films[1].title,
-            picture: films[1].picture,
-            language: films[1].convert(films[1].language),
-          ),
-          FilmCard(
-            title: films[2].title,
-            picture: films[2].picture,
-            language: films[2].convert(films[2].language),
-          ),
-          FilmCard(
-            title: films[3].title,
-            picture: films[3].picture,
-            language: films[3].convert(films[3].language),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          // children: <Widget>[
+          //   FilmCard(
+          //     title: films[0].title,
+          //     picture: films[0].picture,
+          //     language: films[0].convert(films[0].language),
+          //   ),
+          //   FilmCard(
+          //     title: films[1].title,
+          //     picture: films[1].picture,
+          //     language: films[1].convert(films[1].language),
+          //   ),
+          //   FilmCard(
+          //     title: films[2].title,
+          //     picture: films[2].picture,
+          //     language: films[2].convert(films[2].language),
+          //   ),
+          //   FilmCard(
+          //     title: films[3].title,
+          //     picture: films[3].picture,
+          //     language: films[3].convert(films[3].language),
+          //   ),
+          // ],
+          children: [
+            ...List.generate(films.length, (index) {
+              return FilmCard(
+                  title: films[index].title,
+                  picture: films[index].picture,
+                  language: films[index]
+                      .convert(films[index].language)
+                      .toPrettyString());
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -123,7 +135,7 @@ class FilmCard extends StatelessWidget {
 
   final String title;
   final String picture;
-  final Language language;
+  final String language;
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +163,7 @@ class FilmCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Text(
-                    'Язык: ' + language.toPrettyString(language),
+                    'Язык: ' + language, //language.toPrettyString(language),
                     style: Theme.of(context).textTheme.bodyLarge,
                   )
                 ],
