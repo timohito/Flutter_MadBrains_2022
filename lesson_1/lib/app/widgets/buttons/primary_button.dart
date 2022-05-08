@@ -22,12 +22,16 @@ class PrimaryButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: Text(
-              title,
-              style: Theme.of(context)
-                  .textTheme
-                  .button
-                  ?.copyWith(color: Colors.white, fontSize: 20),
+            child: Center(
+              child: Text(
+                title,
+                style: Theme.of(context)
+                    .textTheme
+                    .button
+                    ?.copyWith(color: Colors.white, fontSize: 20),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
         ),

@@ -2,6 +2,8 @@ import 'package:lesson_1/app/models/film_card_model.dart';
 import 'package:lesson_1/app/widgets/image_network.dart';
 import 'package:flutter/material.dart';
 
+import 'buttons/primary_button.dart';
+
 class FilmCard extends StatelessWidget {
   const FilmCard({
     required this.id,
@@ -61,6 +63,15 @@ class FilmCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: ImageNetwork(
               picture,
+            ),
+          ),
+          Positioned(
+            left: 8,
+            right: 8,
+            bottom: 8,
+            child: PrimaryButton(
+              'More',
+              onPressed: () {},
             ),
           ),
         ],
