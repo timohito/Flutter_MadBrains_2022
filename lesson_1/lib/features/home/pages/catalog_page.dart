@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lesson_1/features/home/widgets/film_grid.dart';
-
-import '../widgets/film_list.dart';
+import 'package:lesson_1/features/settings/pages/settings_page.dart';
 
 class CatalogPage extends StatelessWidget {
   const CatalogPage({required this.title, Key? key}) : super(key: key);
@@ -24,7 +23,13 @@ class CatalogPage extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                '/settings',
+                arguments: const SettingsArguments('BOBIK'),
+              );
+            },
           ),
         ],
       ),

@@ -59,12 +59,6 @@ class FilmCard extends StatelessWidget {
             top: 4,
             child: _RatingChip(voteAverage),
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: ImageNetwork(
-              picture,
-            ),
-          ),
           Positioned(
             left: 8,
             right: 8,

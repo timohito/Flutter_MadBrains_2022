@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
+  static const String path = '/main';
+
   static const List<_Tab> _tabs = <_Tab>[
     _Tab(
       icon: Icon(Icons.local_movies_outlined),
