@@ -1,4 +1,5 @@
 import 'package:lesson_1/app/models/film_card_model.dart';
+import 'package:lesson_1/app/widgets/buttons/favorites_button.dart';
 import 'package:lesson_1/app/widgets/image_network.dart';
 import 'package:flutter/material.dart';
 
@@ -55,9 +56,35 @@ class FilmCard extends StatelessWidget {
             ),
           ),
           Positioned(
+            left: 4,
+            top: 4,
+            child: FavoritesButton(),
+          ),
+          Positioned(
             right: 4,
             top: 4,
             child: _RatingChip(voteAverage),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Center(
+              child: Text(
+                title,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white70,
+                    shadows: [
+                      Shadow(
+                        color: Colors.black12.withOpacity(0.3),
+                        offset: const Offset(15, 15),
+                        blurRadius: 15,
+                      ),
+                    ]),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+              ),
+            ),
           ),
           Positioned(
             left: 8,
