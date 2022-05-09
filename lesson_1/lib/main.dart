@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lesson_1/app/models/film_card_model.dart';
+import 'package:lesson_1/app/widgets/fim_detailed_page.dart';
 import 'app/widgets/main_page.dart';
 import 'features/settings/pages/settings_page.dart';
+import 'app/widgets/fim_detailed_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -32,6 +35,18 @@ class MyApp extends StatelessWidget {
           return MaterialPageRoute(
             builder: (context) {
               return SettingsPage(
+                arguments: arguments,
+              );
+            },
+          );
+        }
+
+        if (settings.name == FilmDetailedPage.path) {
+          final FilmDetailedArguments arguments =
+              settings.arguments as FilmDetailedArguments;
+          return MaterialPageRoute(
+            builder: (context) {
+              return FilmDetailedPage(
                 arguments: arguments,
               );
             },

@@ -4,6 +4,7 @@ import 'package:lesson_1/app/widgets/image_network.dart';
 import 'package:flutter/material.dart';
 
 import 'buttons/primary_button.dart';
+import 'fim_detailed_page.dart';
 
 class FilmCard extends StatelessWidget {
   const FilmCard({
@@ -11,6 +12,8 @@ class FilmCard extends StatelessWidget {
     required this.title,
     required this.picture,
     required this.voteAverage,
+    required this.description,
+    required this.releaseDate,
     Key? key,
   }) : super(key: key);
 
@@ -23,6 +26,8 @@ class FilmCard extends StatelessWidget {
       title: model.title,
       picture: model.picture,
       voteAverage: model.voteAverage,
+      description: model.description,
+      releaseDate: model.releaseDate,
       key: key,
     );
   }
@@ -31,6 +36,8 @@ class FilmCard extends StatelessWidget {
   final String title;
   final String picture;
   final double voteAverage;
+  final String description;
+  final String releaseDate;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +99,20 @@ class FilmCard extends StatelessWidget {
             bottom: 8,
             child: PrimaryButton(
               'More',
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/film_detailed',
+                  arguments: FilmDetailedArguments(FilmCardModel(
+                    id: id,
+                    title: title,
+                    picture: picture,
+                    voteAverage: voteAverage,
+                    description: description,
+                    releaseDate: releaseDate,
+                  )),
+                );
+              },
             ),
           ),
         ],
