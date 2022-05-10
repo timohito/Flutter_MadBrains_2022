@@ -1,9 +1,58 @@
-import 'film.dart';
+import 'package:flutter/material.dart';
+import 'package:lesson_1/app/models/film_card_model.dart';
+import 'package:lesson_1/app/widgets/fim_detailed_page.dart';
+import 'app/widgets/main_page.dart';
+import 'features/settings/pages/settings_page.dart';
+import 'app/widgets/fim_detailed_page.dart';
 
-import 'film_logic.dart';
+void main() => runApp(const MyApp());
 
-Future<void> main() async {
-  //FilmLogic filmLogic = FilmLogic();
-  //List<Film> list = await filmLogic.getList(randomList.length);
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Основа нашего приложения
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Films',
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+      ),
+      initialRoute: MainPage.path,
+      onGenerateRoute: (settings) {
+        if (settings.name == MainPage.path) {
+          return MaterialPageRoute(
+            builder: (context) {
+              return const MainPage();
+            },
+          );
+        }
+
+        if (settings.name == SettingsPage.path) {
+          final SettingsArguments arguments =
+              settings.arguments as SettingsArguments;
+          return MaterialPageRoute(
+            builder: (context) {
+              return SettingsPage(
+                arguments: arguments,
+              );
+            },
+          );
+        }
+
+        if (settings.name == FilmDetailedPage.path) {
+          final FilmDetailedArguments arguments =
+              settings.arguments as FilmDetailedArguments;
+          return MaterialPageRoute(
+            builder: (context) {
+              return FilmDetailedPage(
+                arguments: arguments,
+              );
+            },
+          );
+        }
+      },
+    );
+  }
 }
-
