@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lesson_1/features/home/widgets/film_list.dart';
 import 'package:lesson_1/features/settings/pages/settings_page.dart';
+import 'package:lesson_1/film_logic.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({required this.title, Key? key}) : super(key: key);
@@ -33,7 +34,22 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: const FilmList(),
+      body: Column(children: <Widget>[
+        Row(
+          children: [
+            Expanded(child: TextField()),
+            IconButton(
+              onPressed: () {
+                return;
+              },
+              icon: const Icon(Icons.search),
+            ),
+          ],
+        ),
+        Expanded(
+          child: FilmList(),
+        )
+      ]),
     );
   }
 }

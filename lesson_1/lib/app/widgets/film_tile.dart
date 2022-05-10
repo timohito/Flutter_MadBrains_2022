@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/film_card_model.dart';
+import 'fim_detailed_page.dart';
 
 class FilmTile extends StatelessWidget {
   const FilmTile({
@@ -37,74 +38,92 @@ class FilmTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Image.network(
-            picture,
-            loadingBuilder: (BuildContext context, Widget child,
-                ImageChunkEvent? loadingProgress) {
-              if (loadingProgress == null) {
-                return child;
-              }
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Row(
-                    children: <Widget>[
-                      const Padding(
-                        padding: EdgeInsets.only(right: 8),
-                        child: Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          voteAverage.toStringAsFixed(1),
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: voteAverage < 4
-                                ? Colors.red
-                                : voteAverage >= 8
-                                    ? Colors.green
-                                    : Colors.black,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16, bottom: 8),
-                  child: Text(
-                    'Дата выхода: $releaseDate',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ),
-                Text(description),
-              ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          '/film_detailed',
+          arguments: FilmDetailedArguments(
+            FilmCardModel(
+              id: id,
+              title: title,
+              picture: picture,
+              voteAverage: voteAverage,
+              description: description,
+              releaseDate: releaseDate,
             ),
           ),
-        ),
-      ],
+        );
+      },
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Image.network(
+              picture,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(
+                      children: <Widget>[
+                        const Padding(
+                          padding: EdgeInsets.only(right: 8),
+                          child: Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            voteAverage.toStringAsFixed(1),
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: voteAverage < 4
+                                  ? Colors.red
+                                  : voteAverage >= 8
+                                      ? Colors.green
+                                      : Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16, bottom: 8),
+                    child: Text(
+                      'Дата выхода: $releaseDate',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                  Text(description),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

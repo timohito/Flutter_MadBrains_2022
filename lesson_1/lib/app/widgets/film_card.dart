@@ -103,14 +103,16 @@ class FilmCard extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   '/film_detailed',
-                  arguments: FilmDetailedArguments(FilmCardModel(
-                    id: id,
-                    title: title,
-                    picture: picture,
-                    voteAverage: voteAverage,
-                    description: description,
-                    releaseDate: releaseDate,
-                  )),
+                  arguments: FilmDetailedArguments(
+                    FilmCardModel(
+                      id: id,
+                      title: title,
+                      picture: picture,
+                      voteAverage: voteAverage,
+                      description: description,
+                      releaseDate: releaseDate,
+                    ),
+                  ),
                 );
               },
             ),
